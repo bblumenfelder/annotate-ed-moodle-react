@@ -1,23 +1,24 @@
+import type { Span } from "../types";
+import { splitIntoPieces } from "../lib/segments";
+import { Fragment } from "react";
 
 interface TextViewProps {
     text: string;
+    spans: Span[];
   }
   
-  function TextView({ text }: TextViewProps) {
-    // Hard-wired for now: "start" is included, "end" is not.
-    const start = 19;
-    const end = 30;
-  
-    const before = text.slice(0, start);
-    const marked = text.slice(start, end);
-    const after = text.slice(end);
-  
+  function TextView({ text, spans }: TextViewProps) {
+    const pieces = splitIntoPieces(text, spans);
     return (
       <div className="atd-text-view">
-        {before}
-        <mark className="atd-mark">{marked}</mark>
-        {after}
-      </div>
+      {pieces.map((piece) => {
+        const content = text.slice(piece.start, piece.end);
+        if (piece.marked) {
+          return <mark key={piece.start} className="atd-mark">{content}</mark>;
+        }
+        return <Fragment key={piece.start}>{content}</Fragment>;
+      })}
+    </div>
     );
   }
   
