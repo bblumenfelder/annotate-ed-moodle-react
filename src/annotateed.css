@@ -1,3 +1,10 @@
 .atd-text-view {
   white-space: pre-wrap;
 }
+
+.atd-mark {
+  padding: 0;
+  color: inherit;
+  background-color: var(--mds-bg-feedback-danger-subtle);
+  border-bottom: 2px solid var(--mds-border-interactive-danger-default);
+}
