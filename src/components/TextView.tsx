@@ -1,4 +1,3 @@
-import styles from "./TextView.module.css";
 
 interface TextViewProps {
     text: string;
@@ -6,7 +5,7 @@ interface TextViewProps {
   
   // Shows the student text. Nothing but the text may live inside this container.
   function TextView({ text }: TextViewProps) {
-    return <div className={styles.textView}>{text}</div>;
+    return <div className="atd-text-view">{text}</div>;
   }
   
   export default TextView;
