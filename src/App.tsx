@@ -2,11 +2,12 @@ import TextView from "./components/TextView";
 import { sampleText } from "./data/sampleText";
 import type { Span } from "./types";
 
-// Three marked places in the sample text. They do not overlap yet.
+// Four marked places in the sample text. The last two overlap.
 const spans: Span[] = [
   { start: 31, end: 46 },
   { start: 19, end: 30 },
   { start: 641, end: 668 },
+  { start: 661, end: 701 },
 ];
 
 

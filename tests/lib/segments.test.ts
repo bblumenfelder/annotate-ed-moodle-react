@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { splitIntoPieces } from "../../src/lib/segments";
+import { splitIntoPieces, splitIntoSegments } from "../../src/lib/segments";
 import { sampleText } from "../../src/data/sampleText";
 describe("splitIntoPieces", () => {
   test("cuts a short text into three pieces", () => {
@@ -57,5 +57,20 @@ describe("splitIntoPieces", () => {
       { start: 5, end: 12, marked: true },
       { start: 12, end: 17, marked: false },
     ]);
+  });
+
+
+
+  test("overlapping spans: no text is doubled", () => {
+    const text = "Sie werden von den Philosophen beraten, weil die ja klug sind.";
+    const segments = splitIntoSegments(text, [
+      { start: 11, end: 38 },
+      { start: 31, end: 61 },
+    ]);
+    const joined = segments
+      .map((segment) => text.slice(segment.start, segment.end))
+      .join("");
+
+    expect(joined).toBe(text);
   });
 });
