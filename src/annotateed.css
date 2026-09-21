@@ -5,6 +5,5 @@
 .atd-mark {
   padding: 0;
   color: inherit;
-  background-color: var(--mds-bg-feedback-danger-subtle);
-  border-bottom: 2px solid var(--mds-border-interactive-danger-default);
-}
+  background-color: color-mix(in srgb, var(--atd-mark-color) 20%, transparent);
+  border-bottom: 2px solid var(--atd-mark-color);}

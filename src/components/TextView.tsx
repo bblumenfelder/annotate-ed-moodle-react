@@ -1,6 +1,7 @@
 import type { Span } from "../types";
 import { splitIntoSegments } from "../lib/segments";
 import { Fragment } from "react";
+import type { CSSProperties } from "react";
 
 interface TextViewProps {
     text: string;
@@ -14,8 +15,9 @@ interface TextViewProps {
         {segments.map((segment) => {
           const content = text.slice(segment.start, segment.end);
           if (segment.spans.length > 0) {
-            return <mark key={segment.start} className="atd-mark">{content}</mark>;
-          }
+            // For now every mark gets the same color.
+            const style = { "--atd-mark-color": "#FF9800" } as CSSProperties;
+            return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
           return <Fragment key={segment.start}>{content}</Fragment>;
         })}
       </div>
