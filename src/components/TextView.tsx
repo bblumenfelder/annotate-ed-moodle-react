@@ -1,5 +1,5 @@
 import type { Span } from "../types";
-import { splitIntoPieces } from "../lib/segments";
+import { splitIntoSegments } from "../lib/segments";
 import { Fragment } from "react";
 
 interface TextViewProps {
@@ -8,17 +8,17 @@ interface TextViewProps {
   }
   
   function TextView({ text, spans }: TextViewProps) {
-    const pieces = splitIntoPieces(text, spans);
+    const segments = splitIntoSegments(text, spans);
     return (
       <div className="atd-text-view">
-      {pieces.map((piece) => {
-        const content = text.slice(piece.start, piece.end);
-        if (piece.marked) {
-          return <mark key={piece.start} className="atd-mark">{content}</mark>;
-        }
-        return <Fragment key={piece.start}>{content}</Fragment>;
-      })}
-    </div>
+        {segments.map((segment) => {
+          const content = text.slice(segment.start, segment.end);
+          if (segment.spans.length > 0) {
+            return <mark key={segment.start} className="atd-mark">{content}</mark>;
+          }
+          return <Fragment key={segment.start}>{content}</Fragment>;
+        })}
+      </div>
     );
   }
   
