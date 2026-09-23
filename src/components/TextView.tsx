@@ -1,23 +1,29 @@
-import type { Span } from "../types";
+import type { Annotation, Category } from "../types";
 import { splitIntoSegments } from "../lib/segments";
 import { Fragment } from "react";
 import type { CSSProperties } from "react";
 
 interface TextViewProps {
     text: string;
-    spans: Span[];
+    annotations: Annotation[];
+    categories: Category[];
   }
   
-  function TextView({ text, spans }: TextViewProps) {
-    const segments = splitIntoSegments(text, spans);
+  function TextView({ text, annotations, categories }: TextViewProps) {
+    const segments = splitIntoSegments(text, annotations);
     return (
       <div className="atd-text-view">
         {segments.map((segment) => {
           const content = text.slice(segment.start, segment.end);
           if (segment.spans.length > 0) {
-            // For now every mark gets the same color.
-            const style = { "--atd-mark-color": "#FF9800" } as CSSProperties;
-            return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
+              // The last annotation of the segment decides the color.
+              const last = segment.spans[segment.spans.length - 1];
+              const category = categories.find((c) => c.name === last.category);
+              const style = {
+                "--atd-mark-color": category?.color,
+                // 20% per annotation, at most 100%.
+                "--atd-mark-alpha": `${Math.min(20 * segment.spans.length, 100)}%`,
+              } as CSSProperties;            return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
           return <Fragment key={segment.start}>{content}</Fragment>;
         })}
       </div>

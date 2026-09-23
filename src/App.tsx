@@ -1,6 +1,6 @@
 import TextView from "./components/TextView";
 import { sampleText } from "./data/sampleText";
-
+import { categories } from "./config/categories";
 import type { Annotation } from "./types";
 
 // Four annotations in the sample text. The last two overlap.
@@ -17,7 +17,7 @@ function App() {
     <main>
       <h1>AnnotateEd</h1>
       <p>{sampleText.length} Zeichen</p>
-      <TextView text={sampleText} spans={annotations} />
+      <TextView text={sampleText} annotations={annotations} categories={categories} />
     </main>
   );
 }

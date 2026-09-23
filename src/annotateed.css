@@ -5,5 +5,5 @@
 .atd-mark {
   padding: 0;
   color: inherit;
-  background-color: color-mix(in srgb, var(--atd-mark-color) 20%, transparent);
+  background-color: color-mix(in srgb, var(--atd-mark-color) var(--atd-mark-alpha), transparent);
   border-bottom: 2px solid var(--atd-mark-color);}
