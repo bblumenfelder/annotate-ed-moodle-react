@@ -23,7 +23,8 @@ interface TextViewProps {
                 "--atd-mark-color": category?.color,
                 // 20% per annotation, at most 100%.
                 "--atd-mark-alpha": `${Math.min(20 * segment.spans.length, 100)}%`,
-              } as CSSProperties;            return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
+              } as CSSProperties;            
+              return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
           return <Fragment key={segment.start}>{content}</Fragment>;
         })}
       </div>

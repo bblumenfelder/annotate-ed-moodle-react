@@ -6,7 +6,10 @@ export interface Span {
 
 // A span with a category, e.g. "grammatik".
 export interface Annotation extends Span {
+  id: string;
   category: string;
+  weight: number;
+  comment: string;
 }
 
 // A kind of mistake and the color of its marks.
