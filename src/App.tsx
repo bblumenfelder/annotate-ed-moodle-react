@@ -12,10 +12,15 @@ function App() {
     <main>
       <h1>AnnotateEd</h1>
       <p>{sampleText.length} Zeichen</p>
-      <TextView text={sampleText} annotations={sampleAnnotations} categories={categories} />
-      {sampleAnnotations.map((annotation) => (
-        <AnnotationCard key={annotation.id} annotation={annotation} text={sampleText} />
-      ))}
+      <div className="atd-editor row">
+        <div className="col-8">
+          <TextView text={sampleText} annotations={sampleAnnotations} categories={categories} />
+        </div>
+        <div className="col-4">
+          {sampleAnnotations.map((annotation) => (
+            <AnnotationCard key={annotation.id} annotation={annotation} text={sampleText} categories={categories} />          ))}
+        </div>
+      </div>
     </main>
   );
 }
