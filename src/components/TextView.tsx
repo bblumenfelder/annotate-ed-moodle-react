@@ -7,9 +7,11 @@ interface TextViewProps {
     text: string;
     annotations: Annotation[];
     categories: Category[];
+    activeId: string | null;
+
   }
   
-  function TextView({ text, annotations, categories }: TextViewProps) {
+  function TextView({ text, annotations, categories, activeId }: TextViewProps) {
     const segments = splitIntoSegments(text, annotations);
     return (
       <div className="atd-text-view">
@@ -24,7 +26,11 @@ interface TextViewProps {
                 // 20% per annotation, at most 100%.
                 "--atd-mark-alpha": `${Math.min(20 * segment.spans.length, 100)}%`,
               } as CSSProperties;            
-              return <mark key={segment.start} className="atd-mark" style={style}>{content}</mark>;          }
+                        // Active if one of the segment's annotations is the active one.
+          const active = segment.spans.some((a) => a.id === activeId);
+          const className = active ? "atd-mark atd-mark--active" : "atd-mark";
+          return <mark key={segment.start} className={className} style={style}>{content}</mark>;
+        }
           return <Fragment key={segment.start}>{content}</Fragment>;
         })}
       </div>
