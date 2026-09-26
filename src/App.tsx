@@ -16,7 +16,7 @@ function App() {
       <p>{sampleText.length} Zeichen</p>
       <div className="atd-editor row">
         <div className="col-8">
-          <TextView text={sampleText} annotations={sampleAnnotations} categories={categories} activeId={activeId} />
+          <TextView text={sampleText} annotations={sampleAnnotations} categories={categories} activeId={activeId} onActivate={setActiveId} />
         </div>
         <div className="col-4">
         {sampleAnnotations.map((annotation) => (
@@ -25,6 +25,7 @@ function App() {
               annotation={annotation}
               text={sampleText}
               categories={categories}
+              active={activeId === annotation.id}
               onActivate={setActiveId}
             />
           ))}

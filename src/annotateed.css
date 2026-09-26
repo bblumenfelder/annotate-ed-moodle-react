@@ -16,3 +16,7 @@
 .atd-editor .atd-card {
   border-inline-start: 6px solid var(--atd-card-color);
 }
+
+.atd-editor .atd-card--active {
+  background-color: color-mix(in srgb, var(--atd-card-color) 20%, transparent);
+}

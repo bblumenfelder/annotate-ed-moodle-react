@@ -8,10 +8,11 @@ interface TextViewProps {
     annotations: Annotation[];
     categories: Category[];
     activeId: string | null;
+    onActivate: (id: string | null) => void;
 
   }
   
-  function TextView({ text, annotations, categories, activeId }: TextViewProps) {
+  function TextView({ text, annotations, categories, activeId, onActivate }: TextViewProps) {
     const segments = splitIntoSegments(text, annotations);
     return (
       <div className="atd-text-view">
@@ -29,7 +30,17 @@ interface TextViewProps {
                         // Active if one of the segment's annotations is the active one.
           const active = segment.spans.some((a) => a.id === activeId);
           const className = active ? "atd-mark atd-mark--active" : "atd-mark";
-          return <mark key={segment.start} className={className} style={style}>{content}</mark>;
+          return (
+            <mark
+              key={segment.start}
+              className={className}
+              style={style}
+              onMouseEnter={() => onActivate(last.id)}
+              onMouseLeave={() => onActivate(null)}
+            >
+              {content}
+            </mark>
+          );
         }
           return <Fragment key={segment.start}>{content}</Fragment>;
         })}

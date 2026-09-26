@@ -5,15 +5,17 @@ interface AnnotationCardProps {
   annotation: Annotation;
   text: string;
   categories: Category[];
-  onActivate: (id: string) => void;
+  active: boolean;
+  onActivate: (id: string | null) => void;
 }
 
-function AnnotationCard({ annotation, text, categories, onActivate }: AnnotationCardProps) {
+function AnnotationCard({ annotation, text, categories, active, onActivate }: AnnotationCardProps) {
   const quote = text.slice(annotation.start, annotation.end);
   const category = categories.find((c) => c.name === annotation.category);
   const style = { "--atd-card-color": category?.color } as CSSProperties;
+  const className = active ? "atd-card atd-card--active card mb-2" : "atd-card card mb-2";
   return (
-    <div className="atd-card card mb-2" style={style} onMouseEnter={() => onActivate(annotation.id)} onMouseLeave={() => onActivate(null)}>
+    <div className={className} style={style} onMouseEnter={() => onActivate(annotation.id)} onMouseLeave={() => onActivate(null)}>
       <div className="card-body">
         <q>{quote}</q>
         <div>{annotation.comment}</div>
