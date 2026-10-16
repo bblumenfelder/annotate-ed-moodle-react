@@ -1,4 +1,4 @@
-import type { Annotation, Category } from "../types";
+import type { Annotation, Category, Span } from "../types";
 import { splitIntoSegments } from "../lib/segments";
 import { Fragment } from "react";
 import type { CSSProperties } from "react";
@@ -10,15 +10,15 @@ interface TextViewProps {
   categories: Category[];
   activeId: string | null;
   onActivate: (id: string | null) => void;
-
+  onSelect: (span: Span | null) => void;
 }
 
-function TextView({ text, annotations, categories, activeId, onActivate }: TextViewProps) {
+  function TextView({ text, annotations, categories, activeId, onActivate, onSelect }: TextViewProps) {
   const segments = splitIntoSegments(text, annotations);
   return (
     <div
     className="atd-text-view"
-    onMouseUp={(event) => console.log(getSelectedSpan(event.currentTarget))}
+      onMouseUp={(event) => onSelect(getSelectedSpan(event.currentTarget))}
   >
       {segments.map((segment) => {
         const content = text.slice(segment.start, segment.end);
