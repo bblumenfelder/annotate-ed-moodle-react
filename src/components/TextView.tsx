@@ -2,6 +2,7 @@ import type { Annotation, Category } from "../types";
 import { splitIntoSegments } from "../lib/segments";
 import { Fragment } from "react";
 import type { CSSProperties } from "react";
+import { getSelectedSpan } from "../lib/selection";
 
 interface TextViewProps {
   text: string;
@@ -15,7 +16,10 @@ interface TextViewProps {
 function TextView({ text, annotations, categories, activeId, onActivate }: TextViewProps) {
   const segments = splitIntoSegments(text, annotations);
   return (
-    <div className="atd-text-view">
+    <div
+    className="atd-text-view"
+    onMouseUp={(event) => console.log(getSelectedSpan(event.currentTarget))}
+  >
       {segments.map((segment) => {
         const content = text.slice(segment.start, segment.end);
         if (segment.spans.length > 0) {
