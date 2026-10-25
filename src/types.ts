@@ -4,12 +4,16 @@ export interface Span {
     end: number;
   }
 
-// A span with a category, e.g. "grammatik".
-export interface Annotation extends Span {
-  id: string;
+// all the values that a teacher can enter
+export interface AnnotationValues {
   category: string;
   weight: number;
   comment: string;
+}
+
+// A span with an id and the entered values.
+export interface Annotation extends Span, AnnotationValues {
+  id: string;
 }
 
 // A kind of mistake and the color of its marks.

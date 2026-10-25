@@ -4,8 +4,8 @@ import { sampleText } from "./data/sampleText";
 import { categories } from "./config/categories";
 import { sampleAnnotations } from "./data/sample/sampleAnnotations";
 import AnnotationCard from "./components/AnnotationCard";
-import type { Annotation, Span } from "./types";
-
+import AnnotationForm from "./components/AnnotationForm";
+import type { Annotation, AnnotationValues, Span } from "./types";
 
 
 function App() {
@@ -13,15 +13,13 @@ function App() {
   const [selection, setSelection] = useState<Span | null>(null);
   const [annotations, setAnnotations] = useState<Annotation[]>(sampleAnnotations);
 
-  function addAnnotation() {
+  function addAnnotation(values: AnnotationValues) {
     if (!selection) return;
     const newAnnotation: Annotation = {
       id: crypto.randomUUID(),
-      start: selection.start,
+      start: selection.start,	
       end: selection.end,
-      category: "none",
-      weight: 1,
-      comment: "",
+      ...values,
     };
     // A new array instead of push so react re-renders.
     setAnnotations([...annotations, newAnnotation]);
@@ -39,14 +37,7 @@ function App() {
           <TextView text={sampleText} annotations={annotations} categories={categories} activeId={activeId} onActivate={setActiveId} onSelect={setSelection} />
         </div>
         <div className="col-4">
-          <button
-            type="button"
-            className="btn btn-primary mb-2"
-            disabled={selection === null}
-            onClick={addAnnotation}
-          >
-            Annotation hinzufügen
-          </button>
+        <AnnotationForm disabled={selection === null} onSave={addAnnotation} />
           {annotations.map((annotation) => (
             <AnnotationCard
               key={annotation.id}
