@@ -37,7 +37,7 @@ function App() {
           <TextView text={sampleText} annotations={annotations} categories={categories} activeId={activeId} onActivate={setActiveId} onSelect={setSelection} />
         </div>
         <div className="col-4">
-        <AnnotationForm disabled={selection === null} onSave={addAnnotation} />
+        <AnnotationForm categories={categories} disabled={selection === null} onSave={addAnnotation} />
           {annotations.map((annotation) => (
             <AnnotationCard
               key={annotation.id}

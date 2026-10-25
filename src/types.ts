@@ -19,5 +19,6 @@ export interface Annotation extends Span, AnnotationValues {
 // A kind of mistake and the color of its marks.
 export interface Category {
   name: string;
+  title: string;
   color: string;
 }
