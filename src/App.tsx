@@ -21,10 +21,16 @@ function App() {
       end: selection.end,
       ...values,
     };
-    // A new array instead of push so react re-renders.
+    
+
     setAnnotations([...annotations, newAnnotation]);
     setSelection(null);
     window.getSelection()?.removeAllRanges();
+  }
+
+  function deleteAnnotation(id: string) {
+    // filter builds a new array so react re-renders
+    setAnnotations(annotations.filter((a) => a.id !== id));
   }
 
   return (
@@ -46,6 +52,7 @@ function App() {
               categories={categories}
               active={activeId === annotation.id}
               onActivate={setActiveId}
+              onDelete={deleteAnnotation}
             />
           ))}
         </div>
