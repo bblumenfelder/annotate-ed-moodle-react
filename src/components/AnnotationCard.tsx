@@ -8,9 +8,10 @@ interface AnnotationCardProps {
   active: boolean;
   onActivate: (id: string | null) => void;
   onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
 
-function AnnotationCard({ annotation, text, categories, active, onActivate, onDelete }: AnnotationCardProps) {
+function AnnotationCard({ annotation, text, categories, active, onActivate, onDelete, onEdit }: AnnotationCardProps) {
   const quote = text.slice(annotation.start, annotation.end);
   const category = categories.find((c) => c.name === annotation.category);
   const style = { "--atd-card-color": category?.color } as CSSProperties;
@@ -21,9 +22,14 @@ function AnnotationCard({ annotation, text, categories, active, onActivate, onDe
         <q>{quote}</q>
         <details><summary>Kommentar</summary>{annotation.comment}</details>
         <div>{annotation.weight} F</div>
-        <button type="button" className="btn btn-sm btn-outline-danger mt-2" onClick={() => onDelete(annotation.id)}>
-          x
-        </button>
+ <div className="d-flex gap-2 mt-2">
+   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => onEdit(annotation.id)}>
+     Bearbeiten
+   </button>
+   <button type="button" className="btn btn-sm btn-outline-danger" aria-label="Löschen" onClick={() => onDelete(annotation.id)}>
+     x
+   </button>
+ </div>
       </div>
     </div>
   );

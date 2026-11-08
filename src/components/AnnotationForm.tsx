@@ -3,17 +3,18 @@ import type { AnnotationValues, Category } from "../types";
 
 
 interface AnnotationFormProps {
-    categories: Category[];
-    disabled: boolean;
-    onSave: (values: AnnotationValues) => void;
-  }
+  categories: Category[];
+  disabled: boolean;
+  initialValues?: AnnotationValues;
+  onSave: (values: AnnotationValues) => void;
+}
   
 // values of an empty form
 const emptyValues: AnnotationValues = { category: "none", weight: 1, comment: "" };
 
 
-function AnnotationForm({ categories, disabled, onSave }: AnnotationFormProps) {
-  const [values, setValues] = useState<AnnotationValues>(emptyValues);
+function AnnotationForm({ categories, disabled, initialValues = emptyValues, onSave }: AnnotationFormProps) {
+  const [values, setValues] = useState<AnnotationValues>(initialValues);
 
     // save action handler
     function handleSave() {
@@ -36,7 +37,7 @@ function AnnotationForm({ categories, disabled, onSave }: AnnotationFormProps) {
           </option>
         ))}
       </select>
-      {/* Gewichtung slider */}
+      {/* Gewichtungsslider */}
       <div className="d-flex align-items-center gap-2 mb-2">
         <input
           type="range"
