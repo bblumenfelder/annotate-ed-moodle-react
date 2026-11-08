@@ -7,13 +7,14 @@ interface AnnotationFormProps {
   disabled: boolean;
   initialValues?: AnnotationValues;
   onSave: (values: AnnotationValues) => void;
+  onCancel: () => void;
 }
   
 // values of an empty form
 const emptyValues: AnnotationValues = { category: "none", weight: 1, comment: "" };
 
 
-function AnnotationForm({ categories, disabled, initialValues = emptyValues, onSave }: AnnotationFormProps) {
+function AnnotationForm({ categories, disabled, initialValues = emptyValues, onSave, onCancel }: AnnotationFormProps) {
   const [values, setValues] = useState<AnnotationValues>(initialValues);
 
     // save action handler
@@ -22,6 +23,12 @@ function AnnotationForm({ categories, disabled, initialValues = emptyValues, onS
         setValues(emptyValues);
     }
 
+  // cancel action handler
+  function handleCancel() {
+    setValues(initialValues);
+    onCancel();
+  }
+  
   return (
     <div className="mb-2">
         {/* Kategorie select */}
@@ -59,9 +66,14 @@ function AnnotationForm({ categories, disabled, initialValues = emptyValues, onS
         value={values.comment}
         onChange={(event) => setValues({ ...values, comment: event.target.value })}
       />
-      <button type="button" className="btn btn-primary" disabled={disabled} onClick={handleSave}>
-        Speichern
-      </button>
+   <div className="d-flex gap-2">
+     <button type="button" className="btn btn-primary" disabled={disabled} onClick={handleSave}>
+       Speichern
+     </button>
+     <button type="button" className="btn btn-outline-secondary" disabled={disabled} onClick={handleCancel}>
+       Abbrechen
+     </button>
+   </div>
     </div>
   );
 }

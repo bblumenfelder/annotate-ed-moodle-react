@@ -32,12 +32,21 @@ function App() {
   function deleteAnnotation(id: string) {
     // filter builds a new array so react re-renders
     setAnnotations(annotations.filter((a) => a.id !== id));
+    // a deleted annotation can't be edited any more.
+    if (id === editingId) setEditingId(null);
   }
 
   function updateAnnotation(values: AnnotationValues) {
     // map builds a new array: the edited annotation gets the new values, all others stay.
     setAnnotations(annotations.map((a) => (a.id === editingId ? { ...a, ...values } : a)));
     setEditingId(null);
+  }
+
+
+  function cancelForm() {
+    setEditingId(null);
+    setSelection(null);
+    window.getSelection()?.removeAllRanges();
   }
   
   // annotation being edited
@@ -55,7 +64,14 @@ function App() {
           <TextView text={sampleText} annotations={annotations} categories={categories} activeId={activeId} onActivate={setActiveId} onSelect={setSelection} />
         </div>
         <div className="col-4">
-        <AnnotationForm key={editingId ?? "new"} categories={categories} disabled={selection === null && editingId === null} initialValues={editingAnnotation} onSave={editingId === null ? addAnnotation : updateAnnotation} />
+        <AnnotationForm
+          key={editingId ?? "new"}
+          categories={categories}
+          disabled={selection === null && editingId === null}
+          initialValues={editingAnnotation}
+          onSave={editingId === null ? addAnnotation : updateAnnotation}
+          onCancel={cancelForm}
+        />
           {annotations.map((annotation) => (
             <AnnotationCard
               key={annotation.id}

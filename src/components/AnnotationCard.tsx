@@ -20,16 +20,16 @@ function AnnotationCard({ annotation, text, categories, active, onActivate, onDe
     <div className={className} style={style} onMouseEnter={() => onActivate(annotation.id)} onMouseLeave={() => onActivate(null)}>
       <div className="card-body">
         <q>{quote}</q>
-        <details><summary>Kommentar</summary>{annotation.comment}</details>
+        <div>{annotation.comment}</div>
         <div>{annotation.weight} F</div>
- <div className="d-flex gap-2 mt-2">
-   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => onEdit(annotation.id)}>
-     Bearbeiten
-   </button>
-   <button type="button" className="btn btn-sm btn-outline-danger" aria-label="Löschen" onClick={() => onDelete(annotation.id)}>
-     x
-   </button>
- </div>
+        <div className="d-flex gap-2 mt-2">
+          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => onEdit(annotation.id)}>
+            Bearbeiten
+          </button>
+          <button type="button" className="btn btn-sm btn-outline-danger" aria-label="Löschen" onClick={() => onDelete(annotation.id)}>
+            x
+          </button>
+        </div>
       </div>
     </div>
   );
