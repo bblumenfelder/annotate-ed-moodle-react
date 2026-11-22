@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:moodle": "node scripts/build-moodle.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest"
